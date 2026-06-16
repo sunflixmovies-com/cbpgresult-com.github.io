@@ -794,7 +794,7 @@ option{
 <div class="logo">
 <img src="https://i.ibb.co/NbcfLSm/po.jpg" alt="Logo">
 </div>
-<div class="session-text">2023-2026</div>
+<div class="session-text">2023-2027</div>
 <div class="title">
 <h1>CBPG RESULT PORTAL</h1>
 </div>
@@ -837,9 +837,9 @@ CBPG College - Check UG, PG, Professional & Back Paper Results.
 <select id="examType">
 <option value="">Choose Exam Type</option>
 <option value="BACKPAPER">BACK PAPER</option>
-<option value="UG">UG (2023-2026)</option>
-<option value="PG">PG (2023-2026)</option>
-<option value="PROFESSIONAL">PROFESSIONAL (2023-2025)</option>
+<option value="UG">UnderGraduate (UG)</option>
+<option value="PG">PostGraduate (PG)</option>
+<option value="PROFESSIONAL">PROFESSIONAL</option>
 </select>
 </div>
 
@@ -1021,17 +1021,17 @@ const YEAR_WISE_SEMESTERS = {
   },
 
   "2025":{
-    BSC:[3,4],
+    BSC:[1,2,3,4],
     BA:[3,4],
-    BCOM:[3,4],
+    BCOM:[1,2,3,4],
     MA:[3],
     BED:[3]
   },
 
   "2026":{
-    BSC:[5],
+    BSC:[3,5],
     BA:[5],
-    BCOM:[5,6],
+    BCOM:[3,5,6],
     MA:[],
     BED:[]
   }
@@ -1605,19 +1605,19 @@ if(year === "2024"){
 
   examType.innerHTML = `
   <option value="">Choose Exam Type</option>
-  <option value="UG">UG (2023-2026)</option>
-  <option value="PG">PG (2023-2026)</option>
-  <option value="PROFESSIONAL">PROFESSIONAL (2023-2025)</option>
+  <option value="UG">UnderGraduate (UG)</option>
+  <option value="PG">PostGraduate (PG)</option>
+  <option value="PROFESSIONAL">PROFESSIONAL</option>
   `;
 
 }else{
 
   examType.innerHTML = `
   <option value="">Choose Exam Type</option>
-  <option value="BACKPAPER">BACK PAPER</option>
-  <option value="UG">UG (2023-2026)</option>
-  <option value="PG">PG (2023-2026)</option>
-  <option value="PROFESSIONAL">PROFESSIONAL (2023-2025)</option>
+  <option value="BACKPAPER">BACK_PAPER</option>
+  <option value="UG">UnderGraduate (UG)</option>
+  <option value="PG">PostGraduate (PG)</option>
+  <option value="PROFESSIONAL">PROFESSIONAL</option>
   `;
 
 }
