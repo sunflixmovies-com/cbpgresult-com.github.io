@@ -7,7 +7,7 @@
 <title>CBPG Result - Check Semester Examination Result</title>
 
 <meta name="description"
-content="Affiliated with Maharaja SuhelDev University, Azamgarh, Uttar Pradesh.">
+content="CBPG RESULT PORTAL. Affiliated - Maharaja SuhelDev State University, Azamgarh, Uttar Pradesh. Check UG PG Results. CBPG College Tarwa Azamgarh">
 
 <meta name="robots" content="index, follow">
 
@@ -858,14 +858,16 @@ Affiliated - Maharaja SuhelDev State University, Azamgarh, Uttar Pradesh
 <B><U>Check Semester Examination Result</U></B>
 </div>
 <div class="seo-content">
-<h2>Affiliated with Maharaja Suhel Dev University, Azamgarh</h2>
+<h2>CBPG RESULT PORTAL</h2>
 
 <p>
-Affiliated with Maharaja SuhelDev University, Azamgarh, Uttar Pradesh.
+Affiliated - Maharaja SuhelDev State University,
+Azamgarh, Uttar Pradesh.
 </p>
 
 <p>
-Affiliated with Maharaja SuhelDev University, Azamgarh, Uttar Pradesh
+Check UG PG Results.
+CBPG College Tarwa Azamgarh.
 </p>
 </div>
 <div class="input-group">
@@ -1022,7 +1024,8 @@ Preparing file...
 
 <script>
 
-const SHOW_PG_PROFESSIONAL_2026 = false;
+const SHOW_PG_2026 = true;
+const SHOW_PROFESSIONAL_2026 = false;
 
 const API_URL =
 "https://script.google.com/macros/s/AKfycbwcuRt0wI_st92B8kKVYjYbc_K80_ZU8QAAlFQ32-NpBUwYFnYHtWRWndosFzQxUc5U/exec";
@@ -1042,7 +1045,7 @@ const YEAR_WISE_SEMESTERS = {
     BSC:[1,2,3,4],
     BA:[3,4],
     BCOM:[1,2,3,4],
-    MA:[3,4],
+    MA:[1,2,3,4],
     BED:[3,4]
   },
 
@@ -1050,7 +1053,7 @@ const YEAR_WISE_SEMESTERS = {
     BSC:[3,5],
     BA:[5],
     BCOM:[3,5,6],
-    MA:[1],
+    MA:[3,4],
     BED:[1]
   }
 
@@ -1241,6 +1244,7 @@ let error =
 document.getElementById("error");
 
 error.innerHTML = "";
+let isTimedOut = false;
 
 /* VALIDATION */
 
@@ -1313,12 +1317,27 @@ API_URL +
 "&father=" + encodeURIComponent(father);
 /* FETCH */
 
+
+const timeout = setTimeout(() => {
+
+isTimedOut = true;
+
+document.getElementById("loading").style.display = "none";
+
+error.innerHTML =
+"⛔ Server Timeout. Please try again.";
+
+},7000);
+
 fetch(url)
 
 .then(response => response.json())
 
 .then(data => {
 
+if(isTimedOut) return;
+
+clearTimeout(timeout);
 document.getElementById("loading")
 .style.display = "none";
 
@@ -1384,6 +1403,7 @@ error.innerHTML =
 
 .catch(err => {
 
+clearTimeout(timeout);
 document.getElementById("loading")
 .style.display =
 "none";
@@ -1579,24 +1599,23 @@ if(year === "2024"){
   `;
 
 }
-else if(year === "2026" && !SHOW_PG_PROFESSIONAL_2026){
+else if(year === "2026"){
 
-  examType.innerHTML = `
-  <option value="">Choose Exam Type</option>
-  <option value="BACKPAPER">BACK_PAPER</option>
-  <option value="UG">UnderGraduate (UG)</option>
-  `;
+let options = `
+<option value="">Choose Exam Type</option>
+<option value="BACKPAPER">BACK_PAPER</option>
+<option value="UG">UnderGraduate (UG)</option>
+`;
 
+if(SHOW_PG_2026){
+options += `<option value="PG">PostGraduate (PG)</option>`;
 }
-else{
 
-  examType.innerHTML = `
-  <option value="">Choose Exam Type</option>
-  <option value="BACKPAPER">BACK_PAPER</option>
-  <option value="UG">UnderGraduate (UG)</option>
-  <option value="PG">PostGraduate (PG)</option>
-  <option value="PROFESSIONAL">PROFESSIONAL</option>
-  `;
+if(SHOW_PROFESSIONAL_2026){
+options += `<option value="PROFESSIONAL">PROFESSIONAL</option>`;
+}
+
+examType.innerHTML = options;
 
 }
 
