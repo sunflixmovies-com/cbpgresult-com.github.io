@@ -7,7 +7,7 @@
 <title>CBPG Result - Check Semester Examination Result</title>
 
 <meta name="description"
-content="CBPG RESULT PORTAL. Affiliated - Maharaja SuhelDev State University, Azamgarh, Uttar Pradesh. Check UG PG Results. CBPG College Tarwa Azamgarh">
+content="Affiliated with Maharaja SuhelDev University, Azamgarh, Uttar Pradesh.">
 
 <meta name="robots" content="index, follow">
 
@@ -822,6 +822,53 @@ margin-top:8px;
 font-size:12px;
 color:#6b7280;
 }
+.welcome-popup{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.85);
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:999999;
+animation:fadeOut 0.5s ease forwards;
+animation-delay:3s;
+}
+
+.welcome-box{
+background:#fff;
+padding:30px;
+border-radius:20px;
+text-align:center;
+min-width:320px;
+box-shadow:0 10px 40px rgba(0,0,0,.3);
+animation:zoomIn .5s ease;
+}
+
+.welcome-icon{
+font-size:50px;
+margin-bottom:10px;
+}
+
+.welcome-box h2{
+color:#2563eb;
+margin-bottom:8px;
+}
+
+.welcome-box p{
+color:#555;
+font-weight:600;
+letter-spacing:1px;
+}
+
+@keyframes fadeOut{
+to{
+opacity:0;
+visibility:hidden;
+}
+}
 </style>
 
 <script type="application/ld+json">
@@ -835,7 +882,13 @@ color:#6b7280;
 </head>
 
 <body>
-
+<div id="welcomePopup" class="welcome-popup">
+  <div class="welcome-box">
+    <div class="welcome-icon">⚡</div>
+    <h2>DEVELOP BY SURAJ</h2>
+    <p>CBPG Result Portal</p>
+  </div>
+</div>
 <div class="loading" id="loading">
 <div class="loader"></div>
 <p>Fetching result...</p>
@@ -858,16 +911,14 @@ Affiliated - Maharaja SuhelDev State University, Azamgarh, Uttar Pradesh
 <B><U>Check Semester Examination Result</U></B>
 </div>
 <div class="seo-content">
-<h2>CBPG RESULT PORTAL</h2>
+<h2>Affiliated with Maharaja Suhel Dev University, Azamgarh</h2>
 
 <p>
-Affiliated - Maharaja SuhelDev State University,
-Azamgarh, Uttar Pradesh.
+Affiliated with Maharaja SuhelDev University, Azamgarh, Uttar Pradesh.
 </p>
 
 <p>
-Check UG PG Results.
-CBPG College Tarwa Azamgarh.
+Affiliated with Maharaja SuhelDev University, Azamgarh, Uttar Pradesh
 </p>
 </div>
 <div class="input-group">
@@ -1024,8 +1075,7 @@ Preparing file...
 
 <script>
 
-const SHOW_PG_2026 = true;
-const SHOW_PROFESSIONAL_2026 = false;
+const SHOW_PG_PROFESSIONAL_2026 = false;
 
 const API_URL =
 "https://script.google.com/macros/s/AKfycbwcuRt0wI_st92B8kKVYjYbc_K80_ZU8QAAlFQ32-NpBUwYFnYHtWRWndosFzQxUc5U/exec";
@@ -1045,7 +1095,7 @@ const YEAR_WISE_SEMESTERS = {
     BSC:[1,2,3,4],
     BA:[3,4],
     BCOM:[1,2,3,4],
-    MA:[1,2,3,4],
+    MA:[3,4],
     BED:[3,4]
   },
 
@@ -1053,7 +1103,7 @@ const YEAR_WISE_SEMESTERS = {
     BSC:[3,5],
     BA:[5],
     BCOM:[3,5,6],
-    MA:[3,4],
+    MA:[1],
     BED:[1]
   }
 
@@ -1244,7 +1294,6 @@ let error =
 document.getElementById("error");
 
 error.innerHTML = "";
-let isTimedOut = false;
 
 /* VALIDATION */
 
@@ -1317,27 +1366,12 @@ API_URL +
 "&father=" + encodeURIComponent(father);
 /* FETCH */
 
-
-const timeout = setTimeout(() => {
-
-isTimedOut = true;
-
-document.getElementById("loading").style.display = "none";
-
-error.innerHTML =
-"⛔ Server Timeout. Please try again.";
-
-},7000);
-
 fetch(url)
 
 .then(response => response.json())
 
 .then(data => {
 
-if(isTimedOut) return;
-
-clearTimeout(timeout);
 document.getElementById("loading")
 .style.display = "none";
 
@@ -1403,7 +1437,6 @@ error.innerHTML =
 
 .catch(err => {
 
-clearTimeout(timeout);
 document.getElementById("loading")
 .style.display =
 "none";
@@ -1599,23 +1632,24 @@ if(year === "2024"){
   `;
 
 }
-else if(year === "2026"){
+else if(year === "2026" && !SHOW_PG_PROFESSIONAL_2026){
 
-let options = `
-<option value="">Choose Exam Type</option>
-<option value="BACKPAPER">BACK_PAPER</option>
-<option value="UG">UnderGraduate (UG)</option>
-`;
+  examType.innerHTML = `
+  <option value="">Choose Exam Type</option>
+  <option value="BACKPAPER">BACK_PAPER</option>
+  <option value="UG">UnderGraduate (UG)</option>
+  `;
 
-if(SHOW_PG_2026){
-options += `<option value="PG">PostGraduate (PG)</option>`;
 }
+else{
 
-if(SHOW_PROFESSIONAL_2026){
-options += `<option value="PROFESSIONAL">PROFESSIONAL</option>`;
-}
-
-examType.innerHTML = options;
+  examType.innerHTML = `
+  <option value="">Choose Exam Type</option>
+  <option value="BACKPAPER">BACK_PAPER</option>
+  <option value="UG">UnderGraduate (UG)</option>
+  <option value="PG">PostGraduate (PG)</option>
+  <option value="PROFESSIONAL">PROFESSIONAL</option>
+  `;
 
 }
 
