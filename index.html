@@ -9,7 +9,7 @@
 <meta name="description"
 content="CBPG RESULT PORTAL. Affiliated - Maharaja SuhelDev State University, Azamgarh, Uttar Pradesh. Check UG PG Results. CBPG College Tarwa Azamgarh">
 
-<meta name="robots" content="index, follow">
+<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
 
 <meta property="og:title" content="CBPG Result Portal - Affiliated with Maharaja SuhelDev University">
 <meta property="og:description" content="Check Semester Examination Results Online">
@@ -621,7 +621,11 @@ color:#fff;
 margin:0;
 }
 .seo-content{
-display:none;
+position:absolute;
+left:-9999px;
+width:1px;
+height:1px;
+overflow:hidden;
 }
 /* Laptop/Desktop Header Compact */
 @media (min-width:1024px){
@@ -858,17 +862,10 @@ Affiliated - Maharaja SuhelDev State University, Azamgarh, Uttar Pradesh
 <B><U>Check Semester Examination Result</U></B>
 </div>
 <div class="seo-content">
-<h2>CBPG RESULT PORTAL</h2>
-
-<p>
-Affiliated - Maharaja SuhelDev State University,
+CBPG RESULT PORTAL.
+Affiliated with Maharaja SuhelDev State University,
 Azamgarh, Uttar Pradesh.
-</p>
-
-<p>
-Check UG PG Results.
-CBPG College Tarwa Azamgarh.
-</p>
+Check Semester Examination Results Online.
 </div>
 <div class="input-group">
 <select id="year">
@@ -992,8 +989,8 @@ background:#fff;">
 <button
 id="actionBtn"
 class="download-btn"
+style="display:none"
 onclick="openFullResult()">
-📄 Download Result
 </button>
 
 
@@ -1076,7 +1073,7 @@ resultLink = "";
 let btn = document.getElementById("actionBtn");
 
 btn.innerHTML = "📄 Download Result";
-
+btn.style.display = "block";
 btn.style.background = "";
 
 btn.onclick = openFullResult;
