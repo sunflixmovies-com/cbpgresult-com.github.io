@@ -202,6 +202,93 @@ transform:rotate(360deg);
 }
 }
 
+.search-loader{
+position:relative;
+width:220px;
+height:130px;
+}
+
+.paper{
+position:absolute;
+width:70px;
+height:90px;
+background:#e5e7eb;
+border-radius:8px;
+box-shadow:0 4px 10px rgba(0,0,0,.1);
+}
+
+.paper::before{
+content:"";
+position:absolute;
+top:15px;
+left:12px;
+width:40px;
+height:4px;
+background:#cbd5e1;
+box-shadow:
+0 12px #cbd5e1,
+0 24px #cbd5e1;
+}
+
+.left{
+left:0;
+top:20px;
+animation:paperMove 2s infinite;
+}
+
+.center{
+left:75px;
+top:10px;
+transform:scale(1.1);
+}
+
+.right{
+right:0;
+top:20px;
+animation:paperMove 2s infinite reverse;
+}
+
+.glass{
+position:absolute;
+left:85px;
+top:-5px;
+font-size:60px;
+animation:scan 2s infinite ease-in-out;
+}
+
+@keyframes scan{
+0%{
+transform:translateX(-45px);
+}
+50%{
+transform:translateX(45px);
+}
+100%{
+transform:translateX(-45px);
+}
+}
+
+@keyframes paperMove{
+0%,100%{
+opacity:.5;
+}
+50%{
+opacity:1;
+transform:translateY(-8px);
+}
+}
+
+.loading-text{
+margin-top:20px;
+font-size:16px;
+font-weight:700;
+color:#ffffff;
+letter-spacing:1px;
+text-align:center;
+text-shadow:0 0 10px rgba(255,255,255,.4);
+
+/* animation hata diya */
+}
 /* RESULT POPUP */
 
 .popup{
@@ -826,6 +913,28 @@ margin-top:8px;
 font-size:12px;
 color:#6b7280;
 }
+.loading-text{
+margin-top:20px;
+font-size:16px;
+font-weight:700;
+color:#ffffff;
+letter-spacing:1px;
+text-align:center;
+text-shadow:0 0 10px rgba(255,255,255,.4);
+}
+
+.loading-dots::after{
+content:"";
+animation:dots 1.5s infinite;
+}
+
+@keyframes dots{
+0%{content:"";}
+25%{content:".";}
+50%{content:"..";}
+75%{content:"...";}
+100%{content:"";}
+}
 </style>
 
 <script type="application/ld+json">
@@ -841,8 +950,21 @@ color:#6b7280;
 <body>
 
 <div class="loading" id="loading">
-<div class="loader"></div>
-<p>Fetching result...</p>
+  <div class="search-loader">
+
+    <div class="paper left"></div>
+    <div class="paper center"></div>
+    <div class="paper right"></div>
+
+    <div class="glass">
+      🔍
+    </div>
+
+  </div>
+
+  <div class="loading-text">
+Fetching Result<span class="loading-dots"></span>
+</div>
 </div>
 
 <div class="portal-box">
@@ -1326,7 +1448,7 @@ document.getElementById("loading").style.display = "none";
 error.innerHTML =
 "⛔ Server Timeout. Please try again.";
 
-},7000);
+},9000);
 
 fetch(url)
 
